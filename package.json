@@ -2,7 +2,6 @@
   "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
   "description": "Мессенжер - личный проекта курса Мидл фронтенд-разработчик от Яндекс.Практикум",
-  "main": "index.js",
   "scripts": {
     "start": "parcel src/pages/**/*.hbs --no-cache --port 3001 --open",
     "build": "parcel build src/pages/**/*.hbs --public-url ./ --no-cache",
