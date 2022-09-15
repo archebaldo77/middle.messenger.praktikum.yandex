@@ -5,6 +5,9 @@
 
 [Посмотреть сайт на Netlify](https://632343ac8900896650a8d643--creative-dragon-c2a533.netlify.app/)
 
+### Спринты
+[1-ый спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/1)
+
 #### Доступны страницы
 
 - [Главная](https://632343ac8900896650a8d643--creative-dragon-c2a533.netlify.app/index.html)
