@@ -1,0 +1,32 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Мессенжер - личный проекта курса Мидл фронтенд-разработчик от Яндекс.Практикум",
+  "scripts": {
+    "start": "parcel src/pages/**/*.hbs --no-cache --port 3000 --open",
+    "build": "parcel build src/pages/**/*.hbs --public-url ./ --no-cache",
+    "serve": "node server.js"
+  },
+  "engines": {
+    "node": "16.16.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archebaldo77/middle.messenger.praktikum.yandex.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archebaldo77/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/archebaldo77/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@partiellkorrekt/parcel-transformer-handlebars": "1.0.2",
+    "express": "4.18.1",
+    "handlebars": "4.7.7",
+    "parcel": "2.7.0",
+    "postcss": "8.4.16",
+    "postcss-nested": "5.0.6"
+  }
+}
