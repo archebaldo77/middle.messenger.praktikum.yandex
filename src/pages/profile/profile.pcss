@@ -1,0 +1,42 @@
+.profile-page {
+  position: relative;
+}
+
+.profile-page__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 100%;
+  border-right: 1px solid #eaeaea;
+  cursor: pointer;
+}
+
+.profile-page__container {
+  display: flex;
+  padding: 60px 0 110px;
+}
+
+.profile-link {
+  position: relative;
+  margin: 0;
+  margin-bottom: 24px;
+  padding-right: 10px;
+  font: 500 12px/1.2em 'Inter', sans-serif;
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+
+  &::before {
+    position: absolute;
+    content: '';
+    width: 6px;
+    height: 10px;
+    top: 2px;
+    right: 0;
+    background: url('/static/images/icons/arrow-icon.svg') no-repeat;
+  }
+}
