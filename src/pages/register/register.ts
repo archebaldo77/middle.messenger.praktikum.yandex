@@ -106,7 +106,7 @@ export class Register extends Component {
                 }}}
                 <button type="button" class="register__button">Зарегистрироваться</button>
             </form>
-            <a href="/" class="register__link">Войти</a>
+            <a href="/chats" class="register__link">Войти</a>
           </section>
         </div>
       </main>
