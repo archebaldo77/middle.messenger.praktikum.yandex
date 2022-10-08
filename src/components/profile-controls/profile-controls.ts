@@ -8,7 +8,7 @@ export class ProfileControls extends Component {
   protected render() {
     return `
       <div class="profile-controls">
-        <button type="button" class="profile-controls__button">Изменить данные</button>
+      {{{ Button text="Изменить данные" className="profile-controls__button" type="button" onClick=onClick }}}
         <a
           href="/"
           class="profile-controls__link"

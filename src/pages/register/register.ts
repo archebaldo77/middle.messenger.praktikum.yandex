@@ -15,11 +15,29 @@ export class Register extends Component {
     this.setProps({
       onFocus: this.onFocus,
       onBlur: this.onBlur,
+      onClick: this.onSubmit,
     });
   }
 
   private onFocus = (evt: FocusEvent): void => this.validate(evt);
   private onBlur = (evt: FocusEvent): void => this.validate(evt);
+  private onSubmit = (): void => {
+    const currentRefNames = Object.keys(this.refs);
+
+    currentRefNames.forEach((refName) => {
+      const value = this.refs[refName].element?.querySelector(`input`)?.value;
+      const errorRef = this.refs[refName].refs.errorRef;
+
+      const text = validateForm({
+        type: refName as ValidateType,
+        value: value as string,
+      });
+
+      errorRef.setProps({ text });
+
+      console.log(refName, value);
+    });
+  };
 
   private validate = (evt: FocusEvent): void => {
     const target = evt.target as HTMLInputElement;
@@ -104,7 +122,7 @@ export class Register extends Component {
                     onBlur=onBlur
                     ref="passwordRepeat"
                 }}}
-                <button type="button" class="register__button">Зарегистрироваться</button>
+                {{{ Button text="Зарегистрироваться" className="register__button" type="button" onClick=onClick }}}
             </form>
             <a href="/chats" class="register__link">Войти</a>
           </section>

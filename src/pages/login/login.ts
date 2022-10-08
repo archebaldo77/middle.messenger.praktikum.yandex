@@ -15,13 +15,31 @@ export class Login extends Component {
     this.setProps({
       onFocus: this.onFocus,
       onBlur: this.onBlur,
+      onClick: this.onSubmit,
     });
   }
 
   private onFocus = (evt: FocusEvent): void => this.validate(evt);
   private onBlur = (evt: FocusEvent): void => this.validate(evt);
+  private onSubmit = (): void => {
+    const currentRefNames = Object.keys(this.refs);
 
-  private validate = (evt: FocusEvent): void => {
+    currentRefNames.forEach((refName) => {
+      const value = this.refs[refName].element?.querySelector(`input`)?.value;
+      const errorRef = this.refs[refName].refs.errorRef;
+
+      const text = validateForm({
+        type: refName as ValidateType,
+        value: value as string,
+      });
+
+      errorRef.setProps({ text });
+
+      console.log(refName, value);
+    });
+  };
+
+  private validate = (evt: Event): void => {
     const target = evt.target as HTMLInputElement;
     const currentRefName = target.name;
     const errorRef = this.refs[currentRefName].refs.errorRef;
@@ -59,7 +77,7 @@ export class Login extends Component {
                     onBlur=onBlur
                     ref="password"
               }}}
-              <button type="button" class="login__button">Авторизоваться</button>
+              {{{ Button text="Авторизоваться" className="login__button" type="button" onClick=onClick }}}
             </form>
             <a href="/register" class="login__link">Нет аккаунта?</a>
           </section>
