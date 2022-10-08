@@ -3,6 +3,7 @@ import Handlebars, { HelperOptions } from 'handlebars';
 import Component from './component';
 
 interface ComponentConstructable<Props = any> {
+  componentName: string;
   new (props: Props): Component;
 }
 
@@ -11,7 +12,7 @@ export default function registerComponent<Props extends any>(
   Component: ComponentConstructable<Props>
 ) {
   Handlebars.registerHelper(
-    Component.name,
+    Component.componentName || Component.name,
     function (
       this: Props,
       { hash: { ref, ...hash }, data, fn }: HelperOptions
@@ -44,7 +45,7 @@ export default function registerComponent<Props extends any>(
       children[component.id] = component;
 
       if (ref) {
-        refs[ref] = component.getContent();
+        refs[ref] = component;
       }
 
       const contents = fn ? fn(this) : '';

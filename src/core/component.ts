@@ -9,7 +9,9 @@ interface ComponentMeta<P = any> {
 
 type Events = Values<typeof Component.EVENTS>;
 
-export default class Component<P = any> {
+export default abstract class Component<P = any> {
+  static componentName: string;
+
   static EVENTS = {
     INIT: 'init',
     FLOW_CDM: 'flow:component-did-mount',
@@ -27,7 +29,7 @@ export default class Component<P = any> {
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  protected refs: { [key: string]: Component } = {};
+  public refs: { [key: string]: Component } = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
@@ -48,14 +50,14 @@ export default class Component<P = any> {
     eventBus.emit(Component.EVENTS.INIT, this.props);
   }
 
-  _registerEvents(eventBus: EventBus<Events>) {
+  private _registerEvents(eventBus: EventBus<Events>) {
     eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
     eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
+  private _createResources() {
     this._element = this._createDocumentElement('div');
   }
 
@@ -63,31 +65,32 @@ export default class Component<P = any> {
     this.state = {};
   }
 
-  init() {
+  public init() {
     this._createResources();
     this.eventBus().emit(Component.EVENTS.FLOW_RENDER, this.props);
   }
 
-  _componentDidMount(props: P) {
+  private _componentDidMount(props: P) {
     this.componentDidMount(props);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  componentDidMount(props: P) {}
+  public componentDidMount(props: P) {}
 
-  _componentDidUpdate(oldProps: P, newProps: P) {
+  private _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
     }
+
     this._render();
   }
 
-  componentDidUpdate(oldProps: P, newProps: P) {
+  public componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
-  setProps = (nextProps: P) => {
+  public setProps = (nextProps: P) => {
     if (!nextProps) {
       return;
     }
@@ -95,7 +98,7 @@ export default class Component<P = any> {
     Object.assign(this.props as object, nextProps);
   };
 
-  setState = (nextState: any) => {
+  public setState = (nextState: any) => {
     if (!nextState) {
       return;
     }
@@ -103,11 +106,11 @@ export default class Component<P = any> {
     Object.assign(this.state, nextState);
   };
 
-  get element() {
+  public get element() {
     return this._element;
   }
 
-  _render() {
+  private _render() {
     const fragment = this._compile();
 
     this._removeEvents();
@@ -123,7 +126,7 @@ export default class Component<P = any> {
     return '';
   }
 
-  getContent(): HTMLElement {
+  public getContent(): HTMLElement {
     if (this.element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
         if (
@@ -137,7 +140,7 @@ export default class Component<P = any> {
     return this.element!;
   }
 
-  _makePropsProxy(props: any): any {
+  private _makePropsProxy(props: any): any {
     return new Proxy(props as unknown as object, {
       get: (target: Record<string, unknown>, prop: string) => {
         const value = target[prop];
@@ -157,11 +160,11 @@ export default class Component<P = any> {
     }) as unknown as P;
   }
 
-  _createDocumentElement(tagName: string) {
+  private _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
 
-  _removeEvents() {
+  private _removeEvents() {
     const events: Record<string, () => void> = (this.props as any).events;
 
     if (!events || !this._element) {
@@ -173,7 +176,7 @@ export default class Component<P = any> {
     });
   }
 
-  _addEvents() {
+  private _addEvents() {
     const events: Record<string, () => void> = (this.props as any).events;
 
     if (!events) {
@@ -185,7 +188,7 @@ export default class Component<P = any> {
     });
   }
 
-  _compile(): DocumentFragment {
+  private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
     /**
@@ -236,11 +239,11 @@ export default class Component<P = any> {
     return fragment.content;
   }
 
-  show() {
+  public show() {
     this.getContent().style.display = 'block';
   }
 
-  hide() {
+  public hide() {
     this.getContent().style.display = 'none';
   }
 }
