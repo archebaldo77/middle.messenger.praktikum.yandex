@@ -5,6 +5,8 @@ import './messages-list.pcss';
 import messages from 'mocks/messages.json';
 
 export class MessagesList extends Component {
+  static componentName = `MessagesList`;
+
   constructor() {
     super({ messages });
   }

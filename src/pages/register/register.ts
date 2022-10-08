@@ -7,6 +7,8 @@ import { ValidateType } from 'helpers/validate/const';
 import './register.pcss';
 
 export class Register extends Component {
+  static componentName = `Register`;
+
   constructor() {
     super();
 

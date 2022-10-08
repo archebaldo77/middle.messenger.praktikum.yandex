@@ -3,7 +3,9 @@ import Component from 'core/component';
 import './input-item-controlled.pcss';
 
 export class InputItemControlled extends Component {
-  render() {
+  static componentName = `InputItemControlled`;
+
+  protected render() {
     return `
       <div class="input-item-controlled">
         {{{ InputItem

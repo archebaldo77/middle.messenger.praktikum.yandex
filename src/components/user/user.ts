@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './user.pcss';
 
 export class User extends Component {
+  static componentName = `User`;
+
   protected render() {
     return `
       <div class="user">

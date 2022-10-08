@@ -9,6 +9,8 @@ type MessagesItemProps = {
 };
 
 export class MessagesItem extends Component {
+  static componentName = `MessagesItem`;
+
   constructor(props: MessagesItemProps) {
     super(props);
   }

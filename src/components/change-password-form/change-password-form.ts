@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './change-password-form.pcss';
 
 export class ChangePasswordForm extends Component {
+  static componentName = `ChangePasswordForm`;
+
   protected render() {
     return `
       <section class="change-password">

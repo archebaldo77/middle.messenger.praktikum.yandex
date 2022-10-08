@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './messages-clip.pcss';
 
 export class MessagesClip extends Component {
+  static componentName = `MessagesClip`;
+
   protected render() {
     return `
       <button type="button" class="messages-clip">

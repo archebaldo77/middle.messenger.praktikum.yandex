@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './link-back.pcss';
 
 export class LinkBack extends Component {
+  static componentName = `LinkBack`;
+
   protected render() {
     return `
     <a href="/" class="link-back">

@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './messages-send.pcss';
 
 export class MessagesSend extends Component {
+  static componentName = `MessagesSend`;
+
   protected render() {
     return `
       <button type='button' class='messages-send'>

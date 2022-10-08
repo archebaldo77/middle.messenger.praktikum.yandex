@@ -3,6 +3,8 @@ import Component from 'core/component';
 import './profile-controls.pcss';
 
 export class ProfileControls extends Component {
+  static componentName = `ProfileControls`;
+
   protected render() {
     return `
       <div class="profile-controls">

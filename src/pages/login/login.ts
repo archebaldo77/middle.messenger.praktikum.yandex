@@ -7,6 +7,8 @@ import { ValidateType } from 'helpers/validate/const';
 import './login.pcss';
 
 export class Login extends Component {
+  static componentName = `Login`;
+
   constructor() {
     super();
 
@@ -32,7 +34,7 @@ export class Login extends Component {
     errorRef.setProps({ text });
   };
 
-  render() {
+  protected render() {
     return `
       <main class="login-page">
         <div class="login-page__container">

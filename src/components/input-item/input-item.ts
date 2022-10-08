@@ -19,6 +19,8 @@ type ComponentProps = InputItemProps & {
 };
 
 export class InputItem extends Component<ComponentProps> {
+  static componentName = `InputItem`;
+
   constructor(props: InputItemProps) {
     super({
       ...props,

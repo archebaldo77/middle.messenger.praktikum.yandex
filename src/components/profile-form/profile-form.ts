@@ -7,6 +7,8 @@ import { ValidateType } from 'helpers/validate/const';
 import './profile-form.pcss';
 
 export class ProfileForm extends Component {
+  static componentName = `ProfileForm`;
+
   constructor() {
     super();
 

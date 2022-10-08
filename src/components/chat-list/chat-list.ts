@@ -5,6 +5,8 @@ import './chat-list.pcss';
 import chats from 'mocks/chats.json';
 
 export class ChatList extends Component {
+  static componentName = `ChatList`;
+
   constructor() {
     super({ chats });
   }

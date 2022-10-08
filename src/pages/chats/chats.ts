@@ -3,7 +3,9 @@ import Component from 'core/component';
 import './chats.pcss';
 
 export class Chats extends Component {
-  render() {
+  static componentName = `Chats`;
+
+  protected render() {
     return `
       <main class="chats-page">
         <div class="chats-page__container">
