@@ -3,6 +3,8 @@ require('babel-core/register');
 import renderDOM from 'core/render-dom';
 import registerComponent from 'core/register-component';
 
+import { routes } from 'core/router';
+
 import 'styles/style.pcss';
 
 import { InputItem } from 'components/input-item/input-item';
@@ -60,5 +62,7 @@ registerComponent(Profile);
 registerComponent(ChangePassword);
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderDOM(new Profile());
+  const component = routes[document.location.pathname]();
+
+  renderDOM(component);
 });
