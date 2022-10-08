@@ -4,14 +4,12 @@
   "description": "Мессенжер - личный проекта курса Мидл фронтенд-разработчик от Яндекс.Практикум",
   "scripts": {
     "start": "parcel src/index.html --no-source-maps --no-cache",
-    "build": "parcel build src/pages/**/*.hbs --public-url ./ --no-cache",
+    "build": "parcel build src/index.html --public-url ./ --no-cache",
     "serve": "node server.js"
-  },
-  "engines": {
-    "node": "16.16.0"
   },
   "alias": {
     "core": "./src/core",
+    "helpers": "./src/helpers",
     "components": "./src/components",
     "pages": "./src/pages",
     "styles": "./src/styles",
