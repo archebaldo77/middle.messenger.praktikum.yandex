@@ -1,8 +1,37 @@
 import Component from 'core/component';
 
+import { validateForm } from 'helpers/validate/validate-form';
+
+import { ValidateType } from 'helpers/validate/const';
+
 import './login.pcss';
 
 export class Login extends Component {
+  constructor() {
+    super();
+
+    this.setProps({
+      onFocus: this.onFocus,
+      onBlur: this.onBlur,
+    });
+  }
+
+  private onFocus = (evt: FocusEvent): void => this.validate(evt);
+  private onBlur = (evt: FocusEvent): void => this.validate(evt);
+
+  private validate = (evt: FocusEvent): void => {
+    const target = evt.target as HTMLInputElement;
+    const currentRefName = target.name;
+    const errorRef = this.refs[currentRefName].refs.errorRef;
+
+    const text = validateForm({
+      type: target.name as ValidateType,
+      value: target.value,
+    });
+
+    errorRef.setProps({ text });
+  };
+
   render() {
     return `
       <main class="login-page">
@@ -10,17 +39,23 @@ export class Login extends Component {
           <section class="login">
             <p class="login__text">Вход</p>
             <form class="login__form">
-              {{{ InputItem
-                  type="text"
-                  name="login"
-                  placeholder="Логин"
-                  className="input-item--login login__input-item"
+              {{{ InputItemControlled
+                    type="text"
+                    name="login"
+                    placeholder="Логин"
+                    className="input-item--login login__input-item"
+                    onFocus=onFocus
+                    onBlur=onBlur
+                    ref="login"
               }}}
-              {{{ InputItem
-                  type="password"
-                  name="password"
-                  placeholder="Пароль"
-                  className="input-item--login login__input-item"
+              {{{ InputItemControlled
+                    type="password"
+                    name="password"
+                    placeholder="Пароль"
+                    className="input-item--login login__input-item"
+                    onFocus=onFocus
+                    onBlur=onBlur
+                    ref="password"
               }}}
               <button type="button" class="login__button">Авторизоваться</button>
             </form>
