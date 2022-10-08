@@ -27,6 +27,7 @@ import { ProfileForm } from 'components/profile-form/profile-form';
 import { ProfileControls } from 'components/profile-controls/profile-controls';
 import { ChangePasswordForm } from 'components/change-password-form/change-password-form';
 import { LinkBack } from 'components/link-back/link-back';
+import { Button } from 'components/button/button';
 
 import { Login } from 'pages/login/login';
 import { Register } from 'pages/register/register';
@@ -54,6 +55,7 @@ registerComponent(ProfileForm);
 registerComponent(ProfileControls);
 registerComponent(ChangePasswordForm);
 registerComponent(LinkBack);
+registerComponent(Button);
 
 registerComponent(Login);
 registerComponent(Register);
