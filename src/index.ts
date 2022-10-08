@@ -6,6 +6,8 @@ import registerComponent from 'core/register-component';
 import 'styles/style.pcss';
 
 import { InputItem } from 'components/input-item/input-item';
+import { InputItemControlled } from 'components/input-item-controlled/input-item-controlled';
+import { ErrorMessage } from 'components/error-message/error-message';
 import { ChatAside } from 'components/chat-aside/chat-aside';
 import { Search } from 'components/search/search';
 import { SearchBar } from 'components/search-bar/search-bar';
@@ -22,6 +24,7 @@ import { MessagesEmpty } from 'components/messages-empty/messages-empty';
 import { ProfileForm } from 'components/profile-form/profile-form';
 import { ProfileControls } from 'components/profile-controls/profile-controls';
 import { ChangePasswordForm } from 'components/change-password-form/change-password-form';
+import { LinkBack } from 'components/link-back/link-back';
 
 import { Login } from 'pages/login/login';
 import { Register } from 'pages/register/register';
@@ -30,6 +33,8 @@ import { Profile } from 'pages/profile/profile';
 import { ChangePassword } from 'pages/change-password/change-password';
 
 registerComponent(InputItem);
+registerComponent(InputItemControlled);
+registerComponent(ErrorMessage);
 registerComponent(ChatAside);
 registerComponent(Search);
 registerComponent(SearchBar);
@@ -46,6 +51,7 @@ registerComponent(MessagesEmpty);
 registerComponent(ProfileForm);
 registerComponent(ProfileControls);
 registerComponent(ChangePasswordForm);
+registerComponent(LinkBack);
 
 registerComponent(Login);
 registerComponent(Register);
@@ -54,5 +60,5 @@ registerComponent(Profile);
 registerComponent(ChangePassword);
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderDOM(new Login());
+  renderDOM(new Profile());
 });
