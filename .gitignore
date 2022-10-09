@@ -21,3 +21,6 @@ yarn-error.log*
 *.sublime*
 .vscode
 
+# others
+/src/pages/**/*.hbs
+/src/components/**/*.hbs

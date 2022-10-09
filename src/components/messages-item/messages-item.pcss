@@ -1,0 +1,49 @@
+.messages-item {
+  position: relative;
+  padding: 12px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  min-width: 125px;
+  max-width: 45%;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &--from {
+    margin-right: auto;
+    background-color: #f8f8f8;
+    padding-right: 45px;
+
+    .messages-item__time {
+      color: #999;
+    }
+  }
+
+  &--to {
+    margin-left: auto;
+    background-color: #e4edfd;
+    padding-right: 60px;
+
+    .messages-item__time {
+      color: var(--primary);
+    }
+  }
+
+  &__text {
+    margin: 0;
+  }
+
+  &__status {
+    position: absolute;
+    right: 40px;
+    bottom: 13px;
+  }
+
+  &__time {
+    position: absolute;
+    bottom: 11px;
+    right: 11px;
+    font: 500 9px/1.2em 'Inter', sans-serif;
+  }
+}
