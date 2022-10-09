@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './change-password.pcss';
 
 export class ChangePassword extends Component {
-  static componentName = `ChangePassword`;
+  static componentName = ComponentName.ChangePassword;
 
   protected render() {
     return `

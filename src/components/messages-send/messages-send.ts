@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './messages-send.pcss';
 
 export class MessagesSend extends Component {
-  static componentName = `MessagesSend`;
+  static componentName = ComponentName.MessagesSend;
 
   protected render() {
     return `

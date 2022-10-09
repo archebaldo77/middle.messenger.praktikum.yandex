@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './change-password-form.pcss';
 
 export class ChangePasswordForm extends Component {
-  static componentName = `ChangePasswordForm`;
+  static componentName = ComponentName.ChangePasswordForm;
 
   protected render() {
     return `

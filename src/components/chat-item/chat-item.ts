@@ -1,5 +1,7 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './chat-item.pcss';
 
 type ChatItemProps = {
@@ -11,7 +13,7 @@ type ChatItemProps = {
 };
 
 export class ChatItem extends Component {
-  static componentName = `ChatItem`;
+  static componentName = ComponentName.ChatItem;
 
   constructor(props: ChatItemProps) {
     super(props);

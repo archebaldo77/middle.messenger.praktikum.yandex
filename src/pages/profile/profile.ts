@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './profile.pcss';
 
 export class Profile extends Component {
-  static componentName = `Profile`;
+  static componentName = ComponentName.Profile;
 
   protected render() {
     return `

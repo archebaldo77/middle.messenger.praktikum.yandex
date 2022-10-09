@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './user.pcss';
 
 export class User extends Component {
-  static componentName = `User`;
+  static componentName = ComponentName.User;
 
   protected render() {
     return `

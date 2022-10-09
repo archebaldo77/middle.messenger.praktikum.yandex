@@ -1,13 +1,14 @@
 import Component from 'core/component';
 
-import { validateForm } from 'helpers/validate/validate-form';
+import { ComponentName } from 'helpers/const';
 
 import { ValidateType } from 'helpers/validate/const';
+import { validateForm } from 'helpers/validate/validate-form';
 
 import './login.pcss';
 
 export class Login extends Component {
-  static componentName = `Login`;
+  static componentName = ComponentName.Login;
 
   constructor() {
     super();

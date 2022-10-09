@@ -1,13 +1,14 @@
 import Component from 'core/component';
 
-import { validateForm } from 'helpers/validate/validate-form';
-
+import { ComponentName } from 'helpers/const';
 import { ValidateType } from 'helpers/validate/const';
+
+import { validateForm } from 'helpers/validate/validate-form';
 
 import './profile-form.pcss';
 
 export class ProfileForm extends Component {
-  static componentName = `ProfileForm`;
+  static componentName = ComponentName.ProfileForm;
 
   constructor() {
     super();

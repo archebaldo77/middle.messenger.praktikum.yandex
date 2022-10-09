@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './search-bar.pcss';
 
 export class SearchBar extends Component {
-  static componentName = `SearchBar`;
+  static componentName = ComponentName.SearchBar;
 
   protected render() {
     return `

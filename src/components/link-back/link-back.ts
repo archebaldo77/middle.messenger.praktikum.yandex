@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './link-back.pcss';
 
 export class LinkBack extends Component {
-  static componentName = `LinkBack`;
+  static componentName = ComponentName.LinkBack;
 
   protected render() {
     return `

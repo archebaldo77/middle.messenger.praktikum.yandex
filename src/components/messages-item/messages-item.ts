@@ -1,5 +1,7 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './messages-item.pcss';
 
 type MessagesItemProps = {
@@ -9,7 +11,7 @@ type MessagesItemProps = {
 };
 
 export class MessagesItem extends Component {
-  static componentName = `MessagesItem`;
+  static componentName = ComponentName.MessagesItem;
 
   constructor(props: MessagesItemProps) {
     super(props);

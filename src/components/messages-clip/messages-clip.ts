@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './messages-clip.pcss';
 
 export class MessagesClip extends Component {
-  static componentName = `MessagesClip`;
+  static componentName = ComponentName.MessagesClip;
 
   protected render() {
     return `

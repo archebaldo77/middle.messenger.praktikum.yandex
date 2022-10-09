@@ -1,11 +1,13 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './chat-list.pcss';
 
 import chats from 'mocks/chats.json';
 
 export class ChatList extends Component {
-  static componentName = `ChatList`;
+  static componentName = ComponentName.ChatList;
 
   constructor() {
     super({ chats });

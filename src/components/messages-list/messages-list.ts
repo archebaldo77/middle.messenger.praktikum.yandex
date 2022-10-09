@@ -1,11 +1,13 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './messages-list.pcss';
 
 import messages from 'mocks/messages.json';
 
 export class MessagesList extends Component {
-  static componentName = `MessagesList`;
+  static componentName = ComponentName.MessagesList;
 
   constructor() {
     super({ messages });

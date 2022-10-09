@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './messages.pcss';
 
 export class Messages extends Component {
-  static componentName = `Messages`;
+  static componentName = ComponentName.Messages;
 
   protected render() {
     return `

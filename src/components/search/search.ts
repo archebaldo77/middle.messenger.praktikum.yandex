@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './search.pcss';
 
 export class Search extends Component {
-  static componentName = `Search`;
+  static componentName = ComponentName.Search;
 
   protected render() {
     return `

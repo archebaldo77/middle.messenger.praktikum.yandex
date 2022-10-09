@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './chats.pcss';
 
 export class Chats extends Component {
-  static componentName = `Chats`;
+  static componentName = ComponentName.Chats;
 
   protected render() {
     return `

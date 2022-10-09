@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './profile-controls.pcss';
 
 export class ProfileControls extends Component {
-  static componentName = `ProfileControls`;
+  static componentName = ComponentName.ProfileControls;
 
   protected render() {
     return `

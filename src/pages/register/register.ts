@@ -1,13 +1,14 @@
 import Component from 'core/component';
 
-import { validateForm } from 'helpers/validate/validate-form';
+import { ComponentName } from 'helpers/const';
 
 import { ValidateType } from 'helpers/validate/const';
+import { validateForm } from 'helpers/validate/validate-form';
 
 import './register.pcss';
 
 export class Register extends Component {
-  static componentName = `Register`;
+  static componentName = ComponentName.Register;
 
   constructor() {
     super();
