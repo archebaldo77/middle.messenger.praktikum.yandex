@@ -1,6 +1,6 @@
 import { queryStringify } from 'helpers/http/query-stringify';
 
-enum METHODS {
+enum Methods {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -8,52 +8,52 @@ enum METHODS {
 }
 
 type Options = {
-  method: METHODS;
+  method: Methods;
   timeout?: number;
   data?: Record<string, string>;
   headers?: Record<string, string>;
 };
 
 export default class HTTPTransport {
-  get = (url: string, options: Options = { method: METHODS.GET }) => {
+  get = (url: string, options: Options = { method: Methods.GET }) => {
     const urlWithParams = options.data
       ? url + queryStringify(options.data)
       : url;
 
     return this.request(
       urlWithParams,
-      { ...options, method: METHODS.GET },
+      { ...options, method: Methods.GET },
       options.timeout
     );
   };
 
-  post = (url: string, options: Options = { method: METHODS.POST }) => {
+  post = (url: string, options: Options = { method: Methods.POST }) => {
     return this.request(
       url,
-      { ...options, method: METHODS.POST },
+      { ...options, method: Methods.POST },
       options.timeout
     );
   };
 
-  put = (url: string, options: Options = { method: METHODS.PUT }) => {
+  put = (url: string, options: Options = { method: Methods.PUT }) => {
     return this.request(
       url,
-      { ...options, method: METHODS.PUT },
+      { ...options, method: Methods.PUT },
       options.timeout
     );
   };
 
-  delete = (url: string, options: Options = { method: METHODS.DELETE }) => {
+  delete = (url: string, options: Options = { method: Methods.DELETE }) => {
     return this.request(
       url,
-      { ...options, method: METHODS.DELETE },
+      { ...options, method: Methods.DELETE },
       options.timeout
     );
   };
 
   request = (
     url: string,
-    options: Options = { method: METHODS.GET },
+    options: Options = { method: Methods.GET },
     timeout = 5000
   ): Promise<XMLHttpRequest> => {
     const { method, data, headers = {} } = options;
@@ -80,7 +80,7 @@ export default class HTTPTransport {
       xhr.onabort = reject;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
+      if (method === Methods.GET || !data) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(data));
