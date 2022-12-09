@@ -4,7 +4,7 @@ import { ComponentName } from 'helpers/const';
 
 import './messages-clip.pcss';
 
-export class MessagesClip extends Component {
+export default class MessagesClip extends Component<AnyProps> {
   static componentName = ComponentName.MessagesClip;
 
   protected render() {
