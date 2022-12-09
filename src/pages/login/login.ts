@@ -5,27 +5,51 @@ import { ComponentName } from 'helpers/const';
 import { ValidateType } from 'helpers/validate/const';
 import { validateForm } from 'helpers/validate/validate-form';
 
+import { withStore } from 'HOCs/with-store';
+import { withRouter } from 'HOCs/with-router';
+
+import { login as loginAction } from 'actions/login';
+
+import type { Router } from 'router/router';
+import type { Store } from 'store/store';
+
 import './login.pcss';
 
-export class Login extends Component {
-  static componentName = ComponentName.Login;
+type LoginProps = {
+  onFocus: (evt: FocusEvent) => void;
+  onBlur: (evt: FocusEvent) => void;
+  onClick: (evt: Event) => void;
+  onRegisterButtonClick: () => void;
+  router: Router;
+  store: Store;
+};
 
-  constructor() {
-    super();
+export class Login extends Component<LoginProps> {
+  static componentName = ComponentName.Login;
+  _errors: string[];
+
+  constructor(props: LoginProps) {
+    super(props);
+
+    this._errors = [];
 
     this.setProps({
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       onClick: this.onSubmit,
+      onRegisterButtonClick: () => props.router.go(`/register`),
     });
   }
 
   private onFocus = (evt: FocusEvent): void => this.validate(evt);
   private onBlur = (evt: FocusEvent): void => this.validate(evt);
-  private onSubmit = (): void => {
+  private onSubmit = (evt: Event): void => {
+    evt.preventDefault();
+    this._errors = [];
+
     const currentRefNames = Object.keys(this.refs);
 
-    currentRefNames.forEach((refName) => {
+    this._errors = currentRefNames.filter((refName) => {
       const value = this.refs[refName].element?.querySelector(`input`)?.value;
       const errorRef = this.refs[refName].refs.errorRef;
 
@@ -34,10 +58,22 @@ export class Login extends Component {
         value: value as string,
       });
 
-      errorRef.setProps({ text });
-
-      console.log(refName, value);
+      if (text !== ``) {
+        errorRef.setProps({ text });
+        return text;
+      }
     });
+
+    if (this._errors.length === 0) {
+      const login = (
+        this.refs.login.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+      const password = (
+        this.refs.password.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+
+      this.props.store.dispatch(loginAction({ login, password }));
+    }
   };
 
   private validate = (evt: Event): void => {
@@ -78,11 +114,13 @@ export class Login extends Component {
                     onBlur=onBlur
                     ref="password"
               }}}
-              {{{ Button text="Авторизоваться" className="login__button" type="button" onClick=onClick }}}
+              {{{ Button text="Авторизоваться" className="login__button" type="submit" onClick=onClick }}}
             </form>
-            <a href="/register" class="login__link">Нет аккаунта?</a>
+            {{{ Button text="Нет аккаунта?" className="login__link" type="submit" onClick=onRegisterButtonClick }}}
           </section>
         </div>
       </main>`;
   }
 }
+
+export default withRouter(withStore(Login));
