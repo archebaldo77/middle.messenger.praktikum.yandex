@@ -6,6 +6,19 @@ declare global {
     [key in string]: T;
   };
   export type AnyProps = Record<string, unknown>;
+  export type Message = {
+    content: string;
+    type: string;
+  };
+  export type Chat = {
+    avatar: Nullable<string>;
+    title: string;
+    time: string;
+    unread_count: string;
+    last_message: {
+      content: string;
+    };
+  };
 }
 
 export {};

@@ -2,7 +2,7 @@ export const socket = (
   userId: string,
   selectedChatId: string,
   token: string,
-  onUpdate: (data: Record<string, any>) => void
+  onUpdate: (data: Message | Message[]) => void
 ) => {
   const instance = new WebSocket(
     `wss://ya-praktikum.tech/ws/chats/${userId}/${selectedChatId}/${token}`
