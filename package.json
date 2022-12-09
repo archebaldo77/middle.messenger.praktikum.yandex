@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "babel-core": "6.26.3",
+    "chai": "4.3.7",
     "nanoid": "4.0.0"
   }
 }
