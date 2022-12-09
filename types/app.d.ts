@@ -9,8 +9,10 @@ declare global {
   export type Message = {
     content: string;
     type: string;
+    time: string;
   };
   export type Chat = {
+    id: number;
     avatar: Nullable<string>;
     title: string;
     time: string;
@@ -18,6 +20,15 @@ declare global {
     last_message: {
       content: string;
     };
+  };
+  type UserData = {
+    email: string;
+    login: string;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    phone: number;
+    avatar: string;
   };
 }
 
