@@ -1,11 +1,11 @@
 import Component from 'core/component';
 
 import { ComponentName } from 'helpers/const';
-
 import { validatePassword } from 'helpers/validate/validate-password';
-import { changeUserPassword } from 'actions/change-user-password';
 
 import { withStore } from 'HOCs/with-store';
+
+import { changeUserPassword } from 'actions/change-user-password';
 
 import type { Store } from 'store/store';
 
@@ -90,8 +90,8 @@ export class ChangePasswordForm extends Component<ChangePasswordFormProps> {
         <div class="profile-avatar change-password__avatar">
         ${
           this.props.avatar
-            ? `<img src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" alt="avatar">`
-            : `<div><div>`
+            ? `<img src="https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}" alt="avatar">`
+            : `<div class="profile-avatar__mock"></div>`
         }
           <p class="profile-avatar__name">${this.props.name}</p>
         </div>
