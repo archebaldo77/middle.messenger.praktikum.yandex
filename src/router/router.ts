@@ -5,6 +5,8 @@ export class Router {
   constructor() {
     this._prevRoute = null;
     this._routes = {};
+
+    window.addEventListener(`popstate`, this._onRouteChange);
   }
 
   private _onRouteChange = () => {
@@ -24,16 +26,9 @@ export class Router {
 
       return;
     }
-
-    if (typeof this._routes[`*`] === `function`) {
-      this._routes[`*`]();
-
-      return;
-    }
   };
 
   start() {
-    window.addEventListener(`popstate`, this._onRouteChange);
     this._onRouteChange();
   }
 

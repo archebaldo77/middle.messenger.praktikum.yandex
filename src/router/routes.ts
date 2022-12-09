@@ -4,12 +4,13 @@ import { Router } from './router';
 import { Store } from 'store/store';
 
 import Login from 'pages/login/login';
-import { Register } from 'pages/register/register';
-import { Chats } from 'pages/chats/chats';
-import { Profile } from 'pages/profile/profile';
-import { ChangePassword } from 'pages/change-password/change-password';
+import Register from 'pages/register/register';
+import Chats from 'pages/chats/chats';
+import Profile from 'pages/profile/profile';
+import ChangePassword from 'pages/change-password/change-password';
+import NotFound from 'pages/not-found/not-found';
 
-const Route = {
+const Route: Record<string, any> = {
   '/': Login,
   '/register': Register,
   '/chats': Chats,
@@ -45,10 +46,18 @@ export const Routes = [
   },
 ];
 
-export const initRouter = (router: Router, store: Store) => {
+export const initRouter = (
+  router: Router,
+  store: Store,
+  cb: any = () => undefined
+) => {
   store.on(`changed`, (prev, next) => {
     if (prev.app.currentPage !== next.app.currentPage) {
-      const Page = Route[next.app.currentPage];
+      const isExistingPath = Routes.findIndex(
+        ({ path }) => path === next.app.currentPage
+      );
+
+      const Page = isExistingPath > -1 ? Route[next.app.currentPage] : NotFound;
       renderDOM(new Page({}));
     }
   });
@@ -61,7 +70,7 @@ export const initRouter = (router: Router, store: Store) => {
 
       if (shouldAuth && isAuth) {
         store.dispatch({
-          app: { ...store.getState().app, currentPage: path },
+          app: { currentPage: path },
         });
 
         return;
@@ -69,7 +78,7 @@ export const initRouter = (router: Router, store: Store) => {
 
       if (shouldGuest && !isAuth) {
         store.dispatch({
-          app: { ...store.getState().app, currentPage: path },
+          app: { currentPage: path },
         });
 
         return;
@@ -77,7 +86,7 @@ export const initRouter = (router: Router, store: Store) => {
 
       if (shouldAuth && !isAuth) {
         store.dispatch({
-          app: { ...store.getState().app, currentPage: `/` },
+          app: { currentPage: `/` },
         });
 
         router.go(`/`);
@@ -87,7 +96,7 @@ export const initRouter = (router: Router, store: Store) => {
 
       if (shouldGuest && isAuth) {
         store.dispatch({
-          app: { ...store.getState().app, currentPage: `/chats` },
+          app: { currentPage: `/chats` },
         });
 
         router.go(`/chats`);
@@ -97,5 +106,7 @@ export const initRouter = (router: Router, store: Store) => {
     });
   });
 
-  router.start();
+  new Promise(() => {
+    store.dispatch(cb);
+  }).then(() => router.start());
 };
