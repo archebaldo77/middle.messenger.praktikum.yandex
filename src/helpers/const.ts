@@ -25,4 +25,5 @@ export enum ComponentName {
   Login = `Login`,
   Profile = `Profile`,
   Register = `Register`,
+  NotFound = `NotFound`,
 }
