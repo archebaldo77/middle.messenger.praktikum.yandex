@@ -1,59 +1,67 @@
 import { queryStringify } from 'helpers/http/query-stringify';
 
-enum Methods {
+export enum Method {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
 }
 
-type Options = {
-  method: Methods;
+export type Options = {
+  method: Method;
   timeout?: number;
-  data?: Record<string, string>;
+  data?: Record<string, any>;
   headers?: Record<string, string>;
 };
 
+export const BASE_URL = `https://ya-praktikum.tech/api/v2`;
+
 export default class HTTPTransport {
-  get = (url: string, options: Options = { method: Methods.GET }) => {
+  baseUrl: string;
+
+  constructor(baseURL = BASE_URL) {
+    this.baseUrl = baseURL;
+  }
+
+  get = (url: string, options: Options = { method: Method.GET }) => {
     const urlWithParams = options.data
       ? url + queryStringify(options.data)
       : url;
 
     return this.request(
       urlWithParams,
-      { ...options, method: Methods.GET },
+      { ...options, method: Method.GET },
       options.timeout
     );
   };
 
-  post = (url: string, options: Options = { method: Methods.POST }) => {
+  post = (url: string, options: Options = { method: Method.POST }) => {
     return this.request(
       url,
-      { ...options, method: Methods.POST },
+      { ...options, method: Method.POST },
       options.timeout
     );
   };
 
-  put = (url: string, options: Options = { method: Methods.PUT }) => {
+  put = (url: string, options: Options = { method: Method.PUT }) => {
     return this.request(
       url,
-      { ...options, method: Methods.PUT },
+      { ...options, method: Method.PUT },
       options.timeout
     );
   };
 
-  delete = (url: string, options: Options = { method: Methods.DELETE }) => {
+  delete = (url: string, options: Options = { method: Method.DELETE }) => {
     return this.request(
       url,
-      { ...options, method: Methods.DELETE },
+      { ...options, method: Method.DELETE },
       options.timeout
     );
   };
 
   request = (
     url: string,
-    options: Options = { method: Methods.GET },
+    options: Options = { method: Method.GET },
     timeout = 5000
   ): Promise<XMLHttpRequest> => {
     const { method, data, headers = {} } = options;
@@ -61,7 +69,7 @@ export default class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.open(method, url);
+      xhr.open(method, `${this.baseUrl}${url}`);
       xhr.responseType = 'json';
 
       const headersEntries = Object.entries(headers);
@@ -71,20 +79,27 @@ export default class HTTPTransport {
       });
 
       xhr.timeout = timeout;
+      xhr.withCredentials = true;
 
       xhr.onload = () => {
-        resolve(xhr.response);
+        resolve(xhr);
       };
 
       xhr.onerror = reject;
       xhr.onabort = reject;
       xhr.ontimeout = reject;
 
-      if (method === Methods.GET || !data) {
+      if (method === Method.GET || !data) {
         xhr.send();
-      } else {
-        xhr.send(JSON.stringify(data));
+        return;
       }
+
+      if (data instanceof FormData) {
+        xhr.send(data);
+        return;
+      }
+
+      xhr.send(JSON.stringify(data));
     });
   };
 }
