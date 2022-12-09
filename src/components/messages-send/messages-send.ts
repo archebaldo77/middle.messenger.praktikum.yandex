@@ -4,8 +4,24 @@ import { ComponentName } from 'helpers/const';
 
 import './messages-send.pcss';
 
-export class MessagesSend extends Component {
+type MessagesSendProps = {
+  onClick: () => void;
+};
+
+type ComponentProps = {
+  events: {
+    click: () => void;
+  };
+};
+
+export default class MessagesSend extends Component<
+  MessagesSendProps & ComponentProps
+> {
   static componentName = ComponentName.MessagesSend;
+
+  constructor(props: MessagesSendProps) {
+    super({ ...props, events: { click: props.onClick } });
+  }
 
   protected render() {
     return `
