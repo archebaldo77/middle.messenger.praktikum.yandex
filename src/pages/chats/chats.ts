@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './chats.pcss';
 
-export class Chats extends Component {
-  static componentName = `Chats`;
+export default class Chats extends Component<AnyProps> {
+  static componentName = ComponentName.Chats;
 
   protected render() {
     return `

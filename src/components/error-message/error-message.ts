@@ -1,9 +1,11 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './error-message.pcss';
 
-export class ErrorMessage extends Component {
-  static componentName = `ErrorMessage`;
+export default class ErrorMessage extends Component<AnyProps> {
+  static componentName = ComponentName.ErrorMessage;
 
   protected render() {
     return `

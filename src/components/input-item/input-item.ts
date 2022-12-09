@@ -1,5 +1,7 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './input-item.pcss';
 
 type InputItemProps = {
@@ -18,8 +20,8 @@ type ComponentProps = InputItemProps & {
   };
 };
 
-export class InputItem extends Component<ComponentProps> {
-  static componentName = `InputItem`;
+export default class InputItem extends Component<ComponentProps> {
+  static componentName = ComponentName.InputItem;
 
   constructor(props: InputItemProps) {
     super({
@@ -36,6 +38,7 @@ export class InputItem extends Component<ComponentProps> {
       <input
         type="{{type}}"
         name="{{name}}"
+        value="{{value}}"
         placeholder="{{placeholder}}"
         class="input-item {{className}}"
       />

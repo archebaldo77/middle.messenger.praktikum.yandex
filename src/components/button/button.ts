@@ -1,5 +1,7 @@
 import Component from 'core/component';
 
+import { ComponentName } from 'helpers/const';
+
 import './button.pcss';
 
 type ButtonProps = {
@@ -15,8 +17,8 @@ type ComponentProps = ButtonProps & {
   };
 };
 
-export class Button extends Component<ComponentProps> {
-  static componentName = `Button`;
+export default class Button extends Component<ComponentProps> {
+  static componentName = ComponentName.Button;
 
   constructor(props: ButtonProps) {
     super({
