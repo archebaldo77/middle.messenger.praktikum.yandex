@@ -5,15 +5,21 @@
   "scripts": {
     "start": "parcel src/index.html --no-source-maps --no-cache --port 3000",
     "build": "parcel build src/index.html --public-url ./ --no-cache",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "alias": {
+    "actions": "./src/actions",
     "core": "./src/core",
     "helpers": "./src/helpers",
     "components": "./src/components",
     "pages": "./src/pages",
     "styles": "./src/styles",
-    "mocks": "./src/mocks"
+    "store": "./src/store",
+    "router": "./src/router",
+    "socket": "./src/socket",
+    "HOCs": "./src/HOCs",
+    "api": "./src/api"
   },
   "repository": {
     "type": "git",
@@ -27,27 +33,26 @@
   },
   "homepage": "https://github.com/archebaldo77/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@parcel/transformer-inline-string": "^2.7.0",
-    "@partiellkorrekt/parcel-transformer-handlebars": "^1.0.3",
-    "@types/node": "^18.8.2",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.5.0",
+    "@parcel/transformer-inline-string": "2.7.0",
+    "@types/node": "18.8.2",
+    "@typescript-eslint/eslint-plugin": "5.39.0",
+    "@typescript-eslint/parser": "5.39.0",
+    "eslint": "8.24.0",
+    "eslint-config-prettier": "8.5.0",
     "express": "4.18.1",
     "handlebars": "4.7.7",
     "parcel": "2.7.0",
-    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-handlebars-precompile": "1.0.2",
     "postcss": "8.4.16",
     "postcss-nested": "5.0.6",
     "prettier": "2.7.1",
-    "stylelint": "^14.13.0",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^28.0.0",
-    "typescript": "^4.8.4"
+    "stylelint": "14.13.0",
+    "stylelint-config-prettier": "9.0.3",
+    "stylelint-config-standard": "28.0.0",
+    "typescript": "4.8.4"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "nanoid": "^4.0.0"
+    "babel-core": "6.26.3",
+    "nanoid": "4.0.0"
   }
 }
