@@ -5,9 +5,36 @@
   padding: 10px 0;
   border-bottom: 1px solid #eaeaea;
   margin: 0 20px;
+
+  &__button {
+    width: 200px;
+    color: #fff;
+    font: inherit;
+    background-color: var(--primary);
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    align-self: center;
+    padding: 10px;
+    margin: 0 10px;
+
+    &-success {
+      background-color: var(--success);
+    }
+
+    &-danger {
+      background-color: var(--danger);
+    }
+  }
+}
+
+.user-profile__wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
 .user-profile {
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -23,9 +50,11 @@
   font: 600 13px/1.2em 'Inter', sans-serif;
 }
 
+.user-profile__login {
+  font-size: 10px;
+}
+
 .user__menu {
-  width: 25px;
-  height: 25px;
   display: flex;
   border-radius: 50%;
   cursor: pointer;
@@ -37,8 +66,4 @@
       fill: var(--primary);
     }
   }
-}
-
-.user__dots {
-  margin: auto;
 }
