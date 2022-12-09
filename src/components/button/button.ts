@@ -17,7 +17,7 @@ type ComponentProps = ButtonProps & {
   };
 };
 
-export class Button extends Component<ComponentProps> {
+export default class Button extends Component<ComponentProps> {
   static componentName = ComponentName.Button;
 
   constructor(props: ButtonProps) {
