@@ -6,4 +6,15 @@ export const initialState = {
     isAuth: false,
     data: {},
   },
+  chat: {
+    isLoading: false,
+    isError: false,
+    list: [],
+    selectedChat: null,
+    token: null,
+    usersInSelectedChat: [],
+  },
+  message: {
+    list: [],
+  },
 };
