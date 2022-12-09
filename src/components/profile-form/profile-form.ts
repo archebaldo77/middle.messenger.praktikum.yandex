@@ -1,32 +1,66 @@
 import Component from 'core/component';
 
 import { ComponentName } from 'helpers/const';
-import { ValidateType } from 'helpers/validate/const';
 
+import { ValidateType } from 'helpers/validate/const';
 import { validateForm } from 'helpers/validate/validate-form';
+
+import { withRouter } from 'HOCs/with-router';
+import { withStore } from 'HOCs/with-store';
+
+import { updateUserAvatar } from 'actions/update-user-avatar';
+
+import { changeUserData } from 'actions/change-user-data';
 
 import './profile-form.pcss';
 
-export class ProfileForm extends Component {
-  static componentName = ComponentName.ProfileForm;
+import type { Store } from 'store/store';
 
-  constructor() {
-    super();
+type ProfileFormProps = UserData & {
+  onFocus: (evt: FocusEvent) => void;
+  onBlur: (evt: FocusEvent) => void;
+  onSubmit: (evt: Event) => void;
+  onChangeAvatar: () => void;
+  store: Store;
+};
+
+export class ProfileForm extends Component<ProfileFormProps> {
+  static componentName = ComponentName.ProfileForm;
+  _errors: string[];
+
+  constructor(props: ProfileFormProps) {
+    super(props);
+
+    this._errors = [];
 
     this.setProps({
       onFocus: this.onFocus,
       onBlur: this.onBlur,
-      onClick: this.onSubmit,
+      onSubmit: this.onSubmit,
+      onChangeAvatar: () => {
+        const input = this.refs.avatar.element?.querySelector(`input`);
+        const file = input?.files[0];
+        const formData = new FormData();
+        formData.append(`avatar`, file);
+
+        if (input?.files) {
+          this.props.store.dispatch(updateUserAvatar(formData));
+        }
+      },
     });
   }
 
   private onFocus = (evt: FocusEvent): void => this.validate(evt);
+
   private onBlur = (evt: FocusEvent): void => this.validate(evt);
 
-  private onSubmit = (): void => {
+  private onSubmit = (evt: Event): void => {
+    evt.preventDefault();
+    this._errors = [];
+
     const currentRefNames = Object.keys(this.refs);
 
-    currentRefNames.forEach((refName) => {
+    this._errors = currentRefNames.filter((refName) => {
       const value = this.refs[refName].element?.querySelector(`input`)?.value;
       const errorRef = this.refs[refName].refs.errorRef;
 
@@ -35,12 +69,46 @@ export class ProfileForm extends Component {
         value: value as string,
       });
 
-      errorRef.setProps({ text });
-
-      console.log(refName, value);
+      if (text !== ``) {
+        errorRef.setProps({ text });
+        return text;
+      }
     });
-  };
 
+    if (this._errors.length === 0) {
+      const email = (
+        this.refs.email.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+      const login = (
+        this.refs.login.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+      const first_name = (
+        this.refs.firstName.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+      const second_name = (
+        this.refs.secondName.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+      const display_name = (
+        this.refs.displayName.element!.querySelector(
+          `input`
+        ) as HTMLInputElement
+      ).value;
+      const phone = (
+        this.refs.phone.element!.querySelector(`input`) as HTMLInputElement
+      ).value;
+
+      this.props.store.dispatch(
+        changeUserData({
+          email,
+          login,
+          first_name,
+          second_name,
+          display_name,
+          phone,
+        })
+      );
+    }
+  };
   private validate = (evt: FocusEvent): void => {
     const target = evt.target as HTMLInputElement;
     const currentRefName = target.name;
@@ -59,19 +127,26 @@ export class ProfileForm extends Component {
       <section class="profile">
         <form class="profile-form">
           <div class="profile-avatar">
-            <img src="https://www.fillmurray.com/130/130" alt="avatar">
-            <p class="profile-avatar__name">Вадим</p>
+            ${
+              this.props.avatar
+                ? `<img src="https://ya-praktikum.tech/api/v2/resources{{avatar}}" alt="avatar">`
+                : `<div class="profile-avatar__mock"></div>`
+            }
+            <p class="profile-avatar__name">${this.props.first_name}</p>
             {{{ InputItemControlled
                   type="file"
                   name="avatar"
-                  placeholder=""
+                  placeholder="Выберите аватар"
                   className="input-item--avatar"
+                  ref="avatar"
             }}}
+            {{{ Button text="Сохранить" onClick=onChangeAvatar type="button" className="profile-form__save" }}}
           </div>
           <fieldset class="profile-fieldset">
             <div class="profile-field">
               <span class="profile-field__title">Почта</span>
               {{{ InputItemControlled
+                    value=email
                     type="email"
                     name="email"
                     placeholder="pochta@yandex.ru"
@@ -84,6 +159,7 @@ export class ProfileForm extends Component {
             <div class="profile-field">
               <span class="profile-field__title">Логин</span>
               {{{ InputItemControlled
+                    value=login
                     type="text"
                     name="login"
                     placeholder="ivanivanov"
@@ -96,6 +172,7 @@ export class ProfileForm extends Component {
             <div class="profile-field">
               <span class="profile-field__title">Имя</span>
               {{{ InputItemControlled
+                    value=first_name
                     type="text"
                     name="firstName"
                     placeholder="Иван"
@@ -108,6 +185,7 @@ export class ProfileForm extends Component {
             <div class="profile-field">
               <span class="profile-field__title">Фамилия</span>
               {{{ InputItemControlled
+                    value=second_name
                     type="text"
                     name="secondName"
                     placeholder="Иванов"
@@ -120,6 +198,7 @@ export class ProfileForm extends Component {
             <div class="profile-field">
               <span class="profile-field__title">Имя в чате</span>
               {{{ InputItemControlled
+                    value=display_name
                     type="text"
                     name="displayName"
                     placeholder="Ivan"
@@ -132,6 +211,7 @@ export class ProfileForm extends Component {
             <div class="profile-field">
               <span class="profile-field__title">Телефон</span>
               {{{ InputItemControlled
+                    value=phone
                     type="tel"
                     name="phone"
                     placeholder="+7 (909) 967 30 30"
@@ -142,9 +222,29 @@ export class ProfileForm extends Component {
               }}}
             </div>
           </fieldset>
-          {{{ ProfileControls onClick=onClick}}}
+          {{{ ProfileControls onSubmit=onSubmit }}}
         </form>
       </section>
     `;
   }
 }
+
+type PartialState = {
+  user: {
+    data: UserData;
+  };
+};
+
+const mapStateToProps = (state: PartialState) => {
+  return {
+    email: state.user.data.email,
+    login: state.user.data.login,
+    first_name: state.user.data.first_name,
+    second_name: state.user.data.second_name,
+    display_name: state.user.data.display_name,
+    phone: state.user.data.phone,
+    avatar: state.user.data.avatar,
+  };
+};
+
+export default withRouter(withStore(ProfileForm, mapStateToProps));
