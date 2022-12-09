@@ -52,6 +52,7 @@
     "typescript": "4.8.4"
   },
   "dependencies": {
+    "@parcel/transformer-css": "2.8.1",
     "babel-core": "6.26.3",
     "chai": "4.3.7",
     "nanoid": "4.0.0"
