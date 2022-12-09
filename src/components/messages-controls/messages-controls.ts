@@ -4,7 +4,7 @@ import { ComponentName } from 'helpers/const';
 
 import './messages-controls.pcss';
 
-export class MessagesControls extends Component {
+export default class MessagesControls extends Component<AnyProps> {
   static componentName = ComponentName.MessagesControls;
 
   protected render() {
@@ -16,8 +16,9 @@ export class MessagesControls extends Component {
           name="message"
           placeholder="Сообщение"
           className="input-item--message"
+          ref="message"
         }}}
-        {{{ MessagesSend}}}
+        {{{ MessagesSend onClick=onClick }}}
       </div>
     `;
   }
