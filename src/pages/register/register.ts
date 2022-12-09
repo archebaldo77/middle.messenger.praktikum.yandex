@@ -5,27 +5,52 @@ import { ComponentName } from 'helpers/const';
 import { ValidateType } from 'helpers/validate/const';
 import { validateForm } from 'helpers/validate/validate-form';
 
+import { withRouter } from 'HOCs/with-router';
+import { withStore } from 'HOCs/with-store';
+
+import { registerService } from 'actions/register';
+
+import type { Router } from 'router/router';
+import type { Store } from 'store/store';
+
 import './register.pcss';
 
-export class Register extends Component {
+type RegisterProps = {
+  onFocus: (evt: FocusEvent) => void;
+  onBlur: (evt: FocusEvent) => void;
+  onClick: (evt: FocusEvent) => void;
+  onEnterClick: () => void;
+  router: Router;
+  store: Store;
+};
+
+export class Register extends Component<RegisterProps> {
   static componentName = ComponentName.Register;
 
-  constructor() {
-    super();
+  _errors: string[];
+
+  constructor(props: RegisterProps) {
+    super(props);
+
+    this._errors = [];
 
     this.setProps({
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       onClick: this.onSubmit,
+      onEnterClick: () => this.props.router.go(`/`),
     });
   }
 
   private onFocus = (evt: FocusEvent): void => this.validate(evt);
   private onBlur = (evt: FocusEvent): void => this.validate(evt);
-  private onSubmit = (): void => {
+  private onSubmit = (evt: Event): void => {
+    evt.preventDefault();
+    this._errors = [];
+
     const currentRefNames = Object.keys(this.refs);
 
-    currentRefNames.forEach((refName) => {
+    this._errors = currentRefNames.filter((refName) => {
       const value = this.refs[refName].element?.querySelector(`input`)?.value;
       const errorRef = this.refs[refName].refs.errorRef;
 
@@ -34,10 +59,34 @@ export class Register extends Component {
         value: value as string,
       });
 
-      errorRef.setProps({ text });
-
-      console.log(refName, value);
+      if (text !== ``) {
+        errorRef.setProps({ text });
+        return text;
+      }
     });
+
+    if (this._errors.length === 0) {
+      const email = this.refs.email.element!.querySelector(`input`)!.value;
+      const login = this.refs.login.element!.querySelector(`input`)!.value;
+      const first_name =
+        this.refs.firstName.element!.querySelector(`input`)!.value;
+      const second_name =
+        this.refs.secondName.element!.querySelector(`input`)!.value;
+      const password =
+        this.refs.password.element!.querySelector(`input`)!.value;
+      const phone = this.refs.phone.element!.querySelector(`input`)!.value;
+
+      this.props.store.dispatch(
+        registerService({
+          email,
+          login,
+          first_name,
+          second_name,
+          password,
+          phone,
+        })
+      );
+    }
   };
 
   private validate = (evt: FocusEvent): void => {
@@ -125,10 +174,12 @@ export class Register extends Component {
                 }}}
                 {{{ Button text="Зарегистрироваться" className="register__button" type="button" onClick=onClick }}}
             </form>
-            <a href="/chats" class="register__link">Войти</a>
+            {{{ Button text="Войти" className="register__link" onClick=onEnterClick }}}
           </section>
         </div>
       </main>
     `;
   }
 }
+
+export default withRouter(withStore(Register));
