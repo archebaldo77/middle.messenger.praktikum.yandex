@@ -53,7 +53,7 @@ export class User extends Component<UserProps> {
   protected onDeleteUser = () => {
     const id = prompt(`Введите ID пользователя`);
 
-    if (id === null || id === ` `) {
+    if (id === null || id.trim() === ``) {
       return;
     }
 
