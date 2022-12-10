@@ -1,4 +1,5 @@
 import { queryStringify } from 'helpers/http/query-stringify';
+import { ApiURL } from 'helpers/const';
 
 export enum Method {
   GET = 'GET',
@@ -14,12 +15,10 @@ export type Options = {
   headers?: Record<string, string>;
 };
 
-export const BASE_URL = `https://ya-praktikum.tech/api/v2`;
-
 export default class HTTPTransport {
   baseUrl: string;
 
-  constructor(baseURL = BASE_URL) {
+  constructor(baseURL = ApiURL.base) {
     this.baseUrl = baseURL;
   }
 

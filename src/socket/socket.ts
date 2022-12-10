@@ -1,3 +1,5 @@
+import { ApiURL } from 'helpers/const';
+
 export const socket = (
   userId: string,
   selectedChatId: string,
@@ -5,7 +7,7 @@ export const socket = (
   onUpdate: (data: Message | Message[]) => void
 ) => {
   const instance = new WebSocket(
-    `wss://ya-praktikum.tech/ws/chats/${userId}/${selectedChatId}/${token}`
+    `${ApiURL.websocket}/${userId}/${selectedChatId}/${token}`
   );
 
   let id: NodeJS.Timeout;
