@@ -33,7 +33,7 @@ export class ChatList extends Component<ComponentProps> {
   protected onCreateChatClick = () => {
     const chatName = prompt(`Введите название чата`);
 
-    if (chatName === `` || chatName === null) {
+    if (!chatName) {
       return;
     }
 

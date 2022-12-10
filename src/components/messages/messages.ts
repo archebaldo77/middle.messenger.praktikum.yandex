@@ -32,7 +32,7 @@ export class Messages extends Component<MessagesProps> {
 
   componentDidUpdate(oldProps: Partial<any>, newProps: Partial<any>): boolean {
     if (oldProps.selectedChatId !== newProps.selectedChatId) {
-      if (this._socket !== null) {
+      if (this._socket) {
         this._socket.close();
       }
 
