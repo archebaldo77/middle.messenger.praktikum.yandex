@@ -1,5 +1,7 @@
 import { User } from 'api/user';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { Dispatch } from 'store/store';
 import type { initialState } from 'store/initial-state';
 
@@ -14,11 +16,7 @@ export const updateUserAvatar =
     try {
       const { response, status } = await api.updateUserAvatar(data);
 
-      console.log(response);
-
-      if (status >= 400 && status <= 500) {
-        alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+      if (apiCheckError(status)) {
         return;
       }
 

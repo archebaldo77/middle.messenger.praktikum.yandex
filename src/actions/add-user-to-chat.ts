@@ -1,5 +1,7 @@
 import { Chats } from 'api/chats';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { Dispatch } from 'store/store';
 import type { initialState } from 'store/initial-state';
 
@@ -14,9 +16,7 @@ export const addUserToChat =
     try {
       const { status } = await apiChats.addUserTo(id, chatId);
 
-      if (status >= 400 && status <= 500) {
-        alert(`Пользователь не найден`);
-
+      if (apiCheckError(status, `Пользователь не найден`)) {
         return;
       }
 
@@ -24,9 +24,7 @@ export const addUserToChat =
         chatId
       );
 
-      if (__status >= 400 && __status <= 500) {
-        alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+      if (apiCheckError(__status)) {
         return;
       }
 

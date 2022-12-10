@@ -1,5 +1,7 @@
 import { Chats } from 'api/chats';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { Dispatch } from 'store/store';
 import type { initialState } from 'store/initial-state';
 
@@ -14,9 +16,7 @@ export const deleteUserFromChat =
     try {
       const { status } = await apiChats.deleteUser(id, chatId);
 
-      if (status >= 400 && status <= 500) {
-        alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+      if (apiCheckError(status)) {
         return;
       }
 
@@ -24,9 +24,7 @@ export const deleteUserFromChat =
         chatId
       );
 
-      if (_status >= 400 && _status <= 500) {
-        alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+      if (apiCheckError(_status)) {
         return;
       }
 

@@ -1,5 +1,7 @@
 import { Chats } from 'api/chats';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { initialState } from 'store/initial-state';
 import type { Dispatch } from 'store/store';
 
@@ -15,9 +17,7 @@ export const createChat =
       dispatch({ chat: { ...state.chat, isLoading: true } });
       const { status } = await api.createChat(title);
 
-      if (status >= 400 && status <= 500) {
-        alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+      if (apiCheckError(status)) {
         return;
       }
 

@@ -2,6 +2,8 @@ import { Dispatch } from 'store/store';
 
 import { User } from 'api/user';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { initialState } from 'store/initial-state';
 
 type UserApi = {
@@ -25,8 +27,7 @@ export const registerService =
       status,
     } = await userApi.addUser(data);
 
-    if (status >= 400 && status <= 499) {
-      alert(`Произошла ошибка, попробуйте еще раз`);
+    if (apiCheckError(status)) {
       return;
     }
 

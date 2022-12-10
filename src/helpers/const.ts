@@ -27,3 +27,5 @@ export enum ComponentName {
   Register = `Register`,
   NotFound = `NotFound`,
 }
+
+export const ERROR_MESSAGE = `Что-то пошло не так, попробуйте повторить запрос`;

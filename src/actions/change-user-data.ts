@@ -1,5 +1,7 @@
 import { User } from 'api/user';
 
+import { apiCheckError } from 'helpers/fn';
+
 import type { Dispatch } from 'store/store';
 import type { initialState } from 'store/initial-state';
 
@@ -24,9 +26,7 @@ export const changeUserData =
 
     delete response.status;
 
-    if (status >= 400 && status <= 500) {
-      alert(`Что-то пошло не так, попробуйте повторить запрос`);
-
+    if (apiCheckError(status)) {
       return;
     }
 
