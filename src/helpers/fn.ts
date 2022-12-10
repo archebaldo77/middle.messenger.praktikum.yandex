@@ -1,3 +1,5 @@
+import { ERROR_MESSAGE } from './const';
+
 export const deepEqual = (a: any, b: any): boolean => {
   if (a === b) {
     return true;
@@ -36,3 +38,16 @@ export const sortMessagesByTime = (messages: Array<Message>) =>
     const time2 = new Date(b.time).getTime();
     return time1 - time2;
   });
+
+export const apiCheckError = (
+  statusCode: number,
+  message: string = ERROR_MESSAGE
+): boolean => {
+  if (statusCode >= 400 && statusCode <= 500) {
+    alert(message);
+
+    return true;
+  }
+
+  return false;
+};
