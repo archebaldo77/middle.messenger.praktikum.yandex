@@ -9,7 +9,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "alias": {
-    "actions": "./src/actions",
     "core": "./src/core",
     "helpers": "./src/helpers",
     "components": "./src/components",
