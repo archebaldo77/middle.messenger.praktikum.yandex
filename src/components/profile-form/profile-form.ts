@@ -44,7 +44,7 @@ export class ProfileForm extends Component<ProfileFormProps> {
         formData.append(`avatar`, file);
 
         if (input?.files) {
-          userController.updateUserAvatar(formData);
+          userController.changeUserAvatar(formData);
         }
       },
     });

@@ -4,12 +4,21 @@ import { apiCheckError } from 'helpers/fn';
 
 const apiUser = new User();
 
-type UserData = {
+type UserDataApi = {
   email: string;
   login: string;
   first_name: string;
   second_name: string;
   display_name: string;
+  phone: string;
+};
+
+type UserApi = {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
   phone: string;
 };
 
@@ -33,7 +42,7 @@ export default class UserController {
     }
   };
 
-  public changeUserData = async (data: UserData) => {
+  public changeUserData = async (data: UserDataApi) => {
     const { status, response } = await apiUser.updateUser(data);
 
     delete response.status;
@@ -49,7 +58,7 @@ export default class UserController {
     });
   };
 
-  public updateUserAvatar = async (data: FormData) => {
+  public changeUserAvatar = async (data: FormData) => {
     try {
       const { response, status } = await apiUser.updateUserAvatar(data);
 
@@ -65,5 +74,23 @@ export default class UserController {
     } catch {
       console.error(`Что-то пошло не так`);
     }
+  };
+
+  register = async (data: UserApi) => {
+    const {
+      response: { id },
+      status,
+    } = await apiUser.addUser(data);
+
+    if (apiCheckError(status)) {
+      return;
+    }
+
+    const { response: userData } = await apiUser.getUserById(`${id}`);
+
+    window.store.dispatch({
+      app: { currentPage: `/chats` },
+      user: { ...window.store.getState().user, isAuth: true, data: userData },
+    });
   };
 }
