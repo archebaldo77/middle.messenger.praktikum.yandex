@@ -4,7 +4,7 @@ import { ComponentName } from 'helpers/const';
 
 import './messages-empty.pcss';
 
-export class MessagesEmpty extends Component {
+export default class MessagesEmpty extends Component<AnyProps> {
   static componentName = ComponentName.MessagesEmpty;
 
   protected render() {

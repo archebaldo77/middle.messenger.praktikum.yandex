@@ -4,7 +4,7 @@ import { ComponentName } from 'helpers/const';
 
 import './error-message.pcss';
 
-export class ErrorMessage extends Component {
+export default class ErrorMessage extends Component<AnyProps> {
   static componentName = ComponentName.ErrorMessage;
 
   protected render() {

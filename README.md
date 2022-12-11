@@ -10,6 +10,9 @@
 
 [1-ый спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/1)  
 [2-ой спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/2)
+[3-ий спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/3)
+
+---
 
 #### Доступны страницы
 
@@ -17,16 +20,25 @@
 - [Регистрация](https://creative-dragon-c2a533.netlify.app/register)
 - [Чаты](https://creative-dragon-c2a533.netlify.app/chats)
 - [Профиль](https://creative-dragon-c2a533.netlify.app/profile)
+- [Изменить пароль](https://creative-dragon-c2a533.netlify.app/password)
 
-Основаная логика сайта будет реализована в более поздних спринтах.
+\* страницы [Главная](https://creative-dragon-c2a533.netlify.app/), [Регистрация](https://creative-dragon-c2a533.netlify.app/register) доступны только для гостей
 
-#### Технологии и реализация по результатам 2-ух спринтов:
+\*\* страницы [Чаты](https://creative-dragon-c2a533.netlify.app/chats), [Профиль](https://creative-dragon-c2a533.netlify.app/profile), [Изменить пароль](https://creative-dragon-c2a533.netlify.app/password) доступны только для авторизованных пользователей
+
+---
+
+#### Технологии и реализация по результатам 3-eх спринтов:
 
 - SPA (Реализован базовый класс и компоненты, все приложение использует единую точку входа)
 - Typescript (Внедрен в проект на базовом уровне)
 - Eslint, Stylelint, Prettier (Внедрены в проект для единного стиля кода)
-- Простой роутинг (Для демонстрации страниц)
-- Базовая валидация форм (На страницах Главная, Регистрация, Профиль)
+- Routing (для удобной навигации по приложению)
+- Store (базовое хранилище данных для приложения)
+- Подключены WebSocket (для общения в чате между пользователями)
+- Базовая валидация форм
+
+---
 
 ### Для установки зависимостей и запуска проекта выполните:
 

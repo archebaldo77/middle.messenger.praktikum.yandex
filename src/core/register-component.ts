@@ -2,15 +2,21 @@ import Handlebars, { HelperOptions } from 'handlebars';
 
 import Component from './component';
 
-interface ComponentConstructable<Props = any> {
-  componentName: string;
-  new (props: Props): Component;
+interface ComponentConstructable<
+  Props extends Indexed<any> = any,
+  IncomingProps = any
+> {
+  new (props: IncomingProps): Component<Props>;
+  componentName?: string;
 }
 
+export type AnyProps = Record<string, unknown>;
+
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-export default function registerComponent<Props extends any>(
-  Component: ComponentConstructable<Props>
-) {
+export default function registerComponent<
+  Props extends Record<string, unknown> = AnyProps,
+  IncomingProps = AnyProps
+>(Component: ComponentConstructable<Props, IncomingProps>) {
   Handlebars.registerHelper(
     Component.componentName || Component.name,
     function (
@@ -27,10 +33,6 @@ export default function registerComponent<Props extends any>(
 
       const { children, refs } = data.root;
 
-      /**
-       * Костыль для того, чтобы передавать переменные
-       * внутрь блоков вручную подменяя значение
-       */
       (Object.keys(hash) as any).forEach((key: keyof Props) => {
         if (this[key] && typeof this[key] === 'string') {
           hash[key] = hash[key].replace(

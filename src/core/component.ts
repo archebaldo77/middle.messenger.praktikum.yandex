@@ -2,6 +2,7 @@ import Handlebars from 'handlebars';
 import { nanoid } from 'nanoid';
 
 import EventBus from './event-bus';
+import { deepEqual } from 'helpers/fn';
 
 interface ComponentMeta<P = any> {
   props: P;
@@ -9,7 +10,10 @@ interface ComponentMeta<P = any> {
 
 type Events = Values<typeof Component.EVENTS>;
 
-export default abstract class Component<P = any> {
+export default abstract class Component<
+  P extends Indexed<any>,
+  ParentRefs = Record<string, any>
+> {
   static componentName: string;
 
   static EVENTS = {
@@ -23,13 +27,15 @@ export default abstract class Component<P = any> {
   private readonly _meta: ComponentMeta;
 
   protected _element: Nullable<HTMLElement> = null;
-  protected readonly props: P;
-  protected children: { [id: string]: Component } = {};
+  protected props: P;
+  protected children: { [id: string]: unknown } = {};
 
   eventBus: () => EventBus<Events>;
 
   protected state: any = {};
-  public refs: { [key: string]: Component } = {};
+
+  // @ts-expect-error Тип {} не соответствует типу ParentRefs
+  public refs: ParentRefs = {};
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
@@ -74,11 +80,15 @@ export default abstract class Component<P = any> {
     this.componentDidMount(props);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  public componentDidMount(props: P) {}
+  public componentDidMount(props: P) {
+    this.setProps(props);
+
+    return true;
+  }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
+
     if (!response) {
       return;
     }
@@ -86,16 +96,27 @@ export default abstract class Component<P = any> {
     this._render();
   }
 
-  public componentDidUpdate(oldProps: P, newProps: P) {
+  componentDidUpdate(oldProps: Partial<P>, newProps: Partial<P>) {
+    if (deepEqual(oldProps, newProps)) {
+      return false;
+    }
+
+    this.children = {};
+
     return true;
   }
 
-  public setProps = (nextProps: P) => {
-    if (!nextProps) {
+  public setProps = (nextPartialProps: Partial<P>) => {
+    if (!nextPartialProps) {
       return;
     }
 
-    Object.assign(this.props as object, nextProps);
+    const prevProps = this.props;
+    const nextProps = { ...prevProps, ...nextPartialProps };
+
+    this.props = nextProps;
+
+    this.eventBus().emit(Component.EVENTS.FLOW_CDU, prevProps, nextProps);
   };
 
   public setState = (nextState: any) => {
@@ -191,9 +212,6 @@ export default abstract class Component<P = any> {
   private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
-    /**
-     * Рендерим шаблон
-     */
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
       ...this.state,
@@ -202,13 +220,7 @@ export default abstract class Component<P = any> {
       refs: this.refs,
     });
 
-    /**
-     * Заменяем заглушки на компоненты
-     */
     Object.entries(this.children).forEach(([id, component]) => {
-      /**
-       * Ищем заглушку по id
-       */
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
       if (!stub) {
@@ -217,15 +229,11 @@ export default abstract class Component<P = any> {
 
       const stubChilds = stub.childNodes.length ? stub.childNodes : [];
 
-      /**
-       * Заменяем заглушку на component._element
-       */
-      const content = component.getContent();
+      const content = (
+        component as Component<Record<string, any>>
+      ).getContent();
       stub.replaceWith(content);
 
-      /**
-       * Ищем элемент layout-а, куда вставлять детей
-       */
       const layoutContent = content.querySelector('[data-layout="1"]');
 
       if (layoutContent && stubChilds.length) {
@@ -233,9 +241,6 @@ export default abstract class Component<P = any> {
       }
     });
 
-    /**
-     * Возвращаем фрагмент
-     */
     return fragment.content;
   }
 

@@ -20,7 +20,7 @@ type ComponentProps = InputItemProps & {
   };
 };
 
-export class InputItem extends Component<ComponentProps> {
+export default class InputItem extends Component<ComponentProps> {
   static componentName = ComponentName.InputItem;
 
   constructor(props: InputItemProps) {
@@ -38,6 +38,7 @@ export class InputItem extends Component<ComponentProps> {
       <input
         type="{{type}}"
         name="{{name}}"
+        value="{{value}}"
         placeholder="{{placeholder}}"
         class="input-item {{className}}"
       />

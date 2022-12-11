@@ -8,13 +8,36 @@
 
     &__name {
       font: 600 16px/1.2em 'Inter', sans-serif;
-      color: #1e1e1e;
+      color: var(--font-dark-color);
     }
 
     img {
       width: 130px;
       height: 130px;
       border-radius: 50%;
+    }
+
+    &__mock {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: var(--primary-dark-color);
+    }
+  }
+
+  &-form {
+    &__save {
+      width: 280px;
+      color: var(--primary-light-color);
+      font: inherit;
+      background-color: var(--primary);
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      align-self: center;
+      margin-top: 20px;
+      padding: 10px;
+      margin-bottom: 20px;
     }
   }
 
@@ -30,7 +53,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0 0 30px;
-    border-bottom: 1px solid #eaeaea;
+    border-bottom: 1px solid var(--decorate-light-color);
     font: 500 13px/1.2em 'Inter', sans-serif;
 
     &:last-child {
