@@ -4,13 +4,14 @@ import { ComponentName } from 'helpers/const';
 
 import { withStore } from 'HOCs/with-store';
 
-import { addUserToChat } from 'actions/add-user-to-chat';
-import { deleteUserFromChat } from 'actions/delete-user-from-chat';
+import ChatsController from 'controllers/chats-controller';
 
 import type { initialState } from 'store/initial-state';
 import type { Store } from 'store/store';
 
 import './user.pcss';
+
+const chatController = new ChatsController();
 
 type UserProps = {
   onAddUser: () => void;
@@ -47,7 +48,7 @@ export class User extends Component<UserProps> {
       return;
     }
 
-    this.props.store.dispatch(addUserToChat(id, this.props.selectedChat));
+    chatController.addUserToChat(id, this.props.selectedChat);
   };
 
   protected onDeleteUser = () => {
@@ -63,7 +64,7 @@ export class User extends Component<UserProps> {
       return;
     }
 
-    this.props.store.dispatch(deleteUserFromChat(id, this.props.selectedChat));
+    chatController.deleteUserFromChat(id, this.props.selectedChat);
   };
 
   protected render() {

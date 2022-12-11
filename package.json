@@ -19,7 +19,8 @@
     "router": "./src/router",
     "socket": "./src/socket",
     "HOCs": "./src/HOCs",
-    "api": "./src/api"
+    "api": "./src/api",
+    "controllers": "./src/controllers"
   },
   "repository": {
     "type": "git",

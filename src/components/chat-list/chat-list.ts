@@ -2,14 +2,15 @@ import Component from 'core/component';
 
 import { ComponentName } from 'helpers/const';
 
+import ChatsController from 'controllers/chats-controller';
+
 import './chat-list.pcss';
 
 import { withStore } from 'HOCs/with-store';
 
-import { getChats } from 'actions/get-chats';
-import { createChat } from 'actions/create-chat';
-
 import type { Store } from 'store/store';
+
+const chatsController = new ChatsController();
 
 type ChatListProps = {
   onCreateChatClick: () => void;
@@ -24,7 +25,8 @@ export class ChatList extends Component<ComponentProps> {
   constructor(props: ComponentProps) {
     super(props);
 
-    this.props.store.dispatch(getChats);
+    chatsController.getChats();
+
     this.setProps({
       onCreateChatClick: this.onCreateChatClick,
     });
@@ -37,7 +39,7 @@ export class ChatList extends Component<ComponentProps> {
       return;
     }
 
-    this.props.store.dispatch(createChat(chatName));
+    chatsController.createChat(chatName);
   };
 
   protected render() {
