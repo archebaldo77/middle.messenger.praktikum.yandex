@@ -49,7 +49,7 @@ export const Routes = [
 export const initRouter = (
   router: Router,
   store: Store,
-  cb: any = () => undefined
+  cb: () => Promise<void>
 ) => {
   store.on(`changed`, (prev, next) => {
     if (prev.app.currentPage !== next.app.currentPage) {
@@ -106,7 +106,5 @@ export const initRouter = (
     });
   });
 
-  new Promise(() => {
-    store.dispatch(cb);
-  }).then(() => router.start());
+  cb().then(() => router.start());
 };

@@ -5,12 +5,14 @@ import { ComponentName } from 'helpers/const';
 import { withRouter } from 'HOCs/with-router';
 import { withStore } from 'HOCs/with-store';
 
-import { logout } from 'actions/logout';
+import AuthController from 'controllers/auth-conroller';
 
 import './profile-controls.pcss';
 
 import type { Router } from 'router/router';
 import type { Store } from 'store/store';
+
+const authController = new AuthController();
 
 type ProfileControlsProps = {
   onChangePasswordClick: () => void;
@@ -27,7 +29,7 @@ export class ProfileControls extends Component<ProfileControlsProps> {
 
     this.setProps({
       onChangePasswordClick: () => this.props.router.go(`/password`),
-      onExitClick: () => this.props.store.dispatch(logout),
+      onExitClick: () => authController.logout(),
     });
   }
 

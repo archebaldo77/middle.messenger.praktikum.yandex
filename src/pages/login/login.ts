@@ -8,12 +8,14 @@ import { validateForm } from 'helpers/validate/validate-form';
 import { withStore } from 'HOCs/with-store';
 import { withRouter } from 'HOCs/with-router';
 
-import { login as loginAction } from 'actions/login';
+import AuthController from 'controllers/auth-conroller';
 
 import type { Router } from 'router/router';
 import type { Store } from 'store/store';
 
 import './login.pcss';
+
+const authController = new AuthController();
 
 type LoginProps = {
   onFocus: (evt: FocusEvent) => void;
@@ -72,7 +74,7 @@ export class Login extends Component<LoginProps> {
         this.refs.password.element!.querySelector(`input`) as HTMLInputElement
       ).value;
 
-      this.props.store.dispatch(loginAction({ login, password }));
+      authController.login({ login, password });
     }
   };
 
