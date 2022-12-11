@@ -8,13 +8,13 @@ import { validateForm } from 'helpers/validate/validate-form';
 import { withRouter } from 'HOCs/with-router';
 import { withStore } from 'HOCs/with-store';
 
-import { updateUserAvatar } from 'actions/update-user-avatar';
-
-import { changeUserData } from 'actions/change-user-data';
+import UserController from 'controllers/user-controller';
 
 import './profile-form.pcss';
 
 import type { Store } from 'store/store';
+
+const userController = new UserController();
 
 type ProfileFormProps = UserData & {
   onFocus: (evt: FocusEvent) => void;
@@ -44,7 +44,7 @@ export class ProfileForm extends Component<ProfileFormProps> {
         formData.append(`avatar`, file);
 
         if (input?.files) {
-          this.props.store.dispatch(updateUserAvatar(formData));
+          userController.updateUserAvatar(formData);
         }
       },
     });
@@ -97,16 +97,14 @@ export class ProfileForm extends Component<ProfileFormProps> {
         this.refs.phone.element!.querySelector(`input`) as HTMLInputElement
       ).value;
 
-      this.props.store.dispatch(
-        changeUserData({
-          email,
-          login,
-          first_name,
-          second_name,
-          display_name,
-          phone,
-        })
-      );
+      userController.changeUserData({
+        email,
+        login,
+        first_name,
+        second_name,
+        display_name,
+        phone,
+      });
     }
   };
   private validate = (evt: FocusEvent): void => {
