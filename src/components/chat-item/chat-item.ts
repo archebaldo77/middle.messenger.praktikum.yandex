@@ -2,13 +2,15 @@ import Component from 'core/component';
 
 import { ComponentName } from 'helpers/const';
 
-import { changeSelectedChat } from 'actions/change-selected-chat';
+import ChatsController from 'controllers/chats-controller';
 
 import './chat-item.pcss';
 
 import { withStore } from 'HOCs/with-store';
 
 import type { Store } from 'store/store';
+
+const chatsController = new ChatsController();
 
 type ChatItemProps = {
   id: string;
@@ -34,8 +36,7 @@ export class ChatItem extends Component<ChatItemProps & ComponentProps> {
     super({
       ...props,
       events: {
-        click: () =>
-          this.props.store.dispatch(changeSelectedChat(`${this.props.id}`)),
+        click: () => chatsController.changeSelectedChat(`${this.props.id}`),
       },
     });
   }

@@ -5,11 +5,13 @@ import { validatePassword } from 'helpers/validate/validate-password';
 
 import { withStore } from 'HOCs/with-store';
 
-import { changeUserPassword } from 'actions/change-user-password';
+import UserController from 'controllers/user-controller';
 
 import type { Store } from 'store/store';
 
 import './change-password-form.pcss';
+
+const userController = new UserController();
 
 type ChangePasswordFormProps = {
   onFocus: (evt: FocusEvent) => void;
@@ -71,7 +73,7 @@ export class ChangePasswordForm extends Component<ChangePasswordFormProps> {
         ) as HTMLInputElement
       ).value;
 
-      this.props.store.dispatch(changeUserPassword(oldPassword, newPassword));
+      userController.changeUserPassword(oldPassword, newPassword);
     }
   };
 

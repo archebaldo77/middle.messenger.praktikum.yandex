@@ -3,14 +3,14 @@
   align-items: flex-start;
   padding: 12px 10px;
   cursor: pointer;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid var(--decorate-light-color);
 
   &:hover {
-    background-color: #e4edfd;
+    background-color: var(--decorate-light-active-status);
   }
 
   &--active {
-    background-color: #e4edfd;
+    background-color: var(--decorate-light-active-status);
     cursor: default;
   }
 
@@ -28,9 +28,9 @@
     width: 60px;
     height: 60px;
     padding: 20px 0;
-    background-color: black;
+    background-color: var(--primary-dark-color);
     border-radius: 50%;
-    color: white;
+    color: var(--primary-light-color);
     font-size: 8px;
     text-align: center;
   }
@@ -44,14 +44,14 @@
 
   &__name {
     font: 600 13px/1.2em 'Inter', sans-serif;
-    color: #1e1e1e;
+    color: var(--fornt-dark-color);
     margin: 0;
     margin-bottom: 4px;
   }
 
   &__message {
     font: 500 12px/1.2em 'Inter', sans-serif;
-    color: #999;
+    color: var(--decorate-dark-active-status);
     margin: 0;
   }
 
@@ -60,7 +60,7 @@
     top: 2px;
     right: 0;
     font: 500 9px/1.2em 'Inter', sans-serif;
-    color: #999;
+    color: var(--decorate-dark-active-status);
   }
 
   &__count {
@@ -70,7 +70,7 @@
     min-width: 20px;
     height: 20px;
     background-color: var(--primary);
-    color: #fff;
+    color: var(--primary-light-color);
     text-align: center;
     border-radius: 50%;
     font: 500 11px/1.2em 'Inter', sans-serif;

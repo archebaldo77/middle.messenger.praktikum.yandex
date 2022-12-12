@@ -1,6 +1,8 @@
 # directories
 /node_modules
 /dist
+/test
 
 # files
 server.js
+webpack.config.js

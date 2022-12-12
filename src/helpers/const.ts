@@ -27,3 +27,10 @@ export enum ComponentName {
   Register = `Register`,
   NotFound = `NotFound`,
 }
+
+export const ERROR_MESSAGE = `Что-то пошло не так, попробуйте повторить запрос`;
+
+export enum ApiURL {
+  base = `https://ya-praktikum.tech/api/v2`,
+  websocket = `wss://ya-praktikum.tech/ws/chats`,
+}

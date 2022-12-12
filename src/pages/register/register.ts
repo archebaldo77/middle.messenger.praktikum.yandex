@@ -8,12 +8,14 @@ import { validateForm } from 'helpers/validate/validate-form';
 import { withRouter } from 'HOCs/with-router';
 import { withStore } from 'HOCs/with-store';
 
-import { registerService } from 'actions/register';
+import UserController from 'controllers/user-controller';
 
 import type { Router } from 'router/router';
 import type { Store } from 'store/store';
 
 import './register.pcss';
+
+const userController = new UserController();
 
 type RegisterProps = {
   onFocus: (evt: FocusEvent) => void;
@@ -76,16 +78,14 @@ export class Register extends Component<RegisterProps> {
         this.refs.password.element!.querySelector(`input`)!.value;
       const phone = this.refs.phone.element!.querySelector(`input`)!.value;
 
-      this.props.store.dispatch(
-        registerService({
-          email,
-          login,
-          first_name,
-          second_name,
-          password,
-          phone,
-        })
-      );
+      userController.register({
+        email,
+        login,
+        first_name,
+        second_name,
+        password,
+        phone,
+      });
     }
   };
 

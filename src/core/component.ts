@@ -1,12 +1,8 @@
 import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
-
 import EventBus from './event-bus';
-import { deepEqual } from 'helpers/fn';
 
-interface ComponentMeta<P = any> {
-  props: P;
-}
+import { v4 as makeUUID } from 'uuid';
+import { deepEqual } from 'helpers/fn';
 
 type Events = Values<typeof Component.EVENTS>;
 
@@ -23,8 +19,7 @@ export default abstract class Component<
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
-  private readonly _meta: ComponentMeta;
+  public id = makeUUID();
 
   protected _element: Nullable<HTMLElement> = null;
   protected props: P;
@@ -39,12 +34,6 @@ export default abstract class Component<
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
-
-    this._meta = {
-      props,
-    };
-
-    this.getStateFromProps(props);
 
     this.props = this._makePropsProxy(props || ({} as P));
     this.state = this._makePropsProxy(this.state);
@@ -67,7 +56,7 @@ export default abstract class Component<
     this._element = this._createDocumentElement('div');
   }
 
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {};
   }
 
@@ -80,7 +69,6 @@ export default abstract class Component<
     this.componentDidMount(props);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public componentDidMount(props: P) {
     this.setProps(props);
 
@@ -213,9 +201,6 @@ export default abstract class Component<
   private _compile(): DocumentFragment {
     const fragment = document.createElement('template');
 
-    /**
-     * Рендерим шаблон
-     */
     const template = Handlebars.compile(this.render());
     fragment.innerHTML = template({
       ...this.state,
@@ -224,13 +209,7 @@ export default abstract class Component<
       refs: this.refs,
     });
 
-    /**
-     * Заменяем заглушки на компоненты
-     */
     Object.entries(this.children).forEach(([id, component]) => {
-      /**
-       * Ищем заглушку по id
-       */
       const stub = fragment.content.querySelector(`[data-id="${id}"]`);
 
       if (!stub) {
@@ -239,17 +218,11 @@ export default abstract class Component<
 
       const stubChilds = stub.childNodes.length ? stub.childNodes : [];
 
-      /**
-       * Заменяем заглушку на component._element
-       */
       const content = (
         component as Component<Record<string, any>>
       ).getContent();
       stub.replaceWith(content);
 
-      /**
-       * Ищем элемент layout-а, куда вставлять детей
-       */
       const layoutContent = content.querySelector('[data-layout="1"]');
 
       if (layoutContent && stubChilds.length) {
@@ -257,9 +230,6 @@ export default abstract class Component<
       }
     });
 
-    /**
-     * Возвращаем фрагмент
-     */
     return fragment.content;
   }
 
