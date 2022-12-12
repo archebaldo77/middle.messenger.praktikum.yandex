@@ -20,7 +20,6 @@ const config = {
     hot: true,
     compress: true,
   },
-  watch: true,
   plugins: [
     new HtmlWebpackPlugin({
       template: `./src/index.html`,

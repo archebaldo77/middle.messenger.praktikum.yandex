@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import EventBus from './event-bus';
 
-import { nanoid } from 'nanoid';
+import { v4 as makeUUID } from 'uuid';
 import { deepEqual } from 'helpers/fn';
 
 type Events = Values<typeof Component.EVENTS>;
@@ -19,7 +19,7 @@ export default abstract class Component<
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
+  public id = makeUUID();
 
   protected _element: Nullable<HTMLElement> = null;
   protected props: P;
