@@ -4,5 +4,6 @@
 /test
 
 # files
+src/helpers/handlebars.min.js
 server.js
 webpack.config.js

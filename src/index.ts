@@ -1,5 +1,3 @@
-require('babel-core/register');
-
 import registerComponent from 'core/register-component';
 
 import { Store } from 'store/store';

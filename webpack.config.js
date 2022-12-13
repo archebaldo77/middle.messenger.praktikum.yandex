@@ -46,7 +46,6 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js'],
     alias: {
-      handlebars: 'handlebars/dist/handlebars.js',
       core: path.resolve(__dirname, 'src/core'),
       helpers: path.resolve(__dirname, 'src/helpers'),
       components: path.resolve(__dirname, 'src/components'),
