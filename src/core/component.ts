@@ -1,4 +1,5 @@
-import Handlebars from 'handlebars';
+// @ts-expect-error type handlebars;
+import Handlebars from 'helpers/handlebars.min.js';
 import EventBus from './event-bus';
 
 import { v4 as makeUUID } from 'uuid';

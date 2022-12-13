@@ -2,10 +2,16 @@ import { expect } from 'chai';
 
 import Component from './component';
 
-class TestComponent extends Component<AnyProps> {}
+class TestComponent extends Component<AnyProps> {
+  render() {
+    return `<div class="test">Test</div>`;
+  }
+}
+
+const component = new TestComponent();
 
 describe('Component test cases', () => {
-  it('Test', () => {
-    expect(TestComponent).to.be.not.null;
+  it('should render right markup', () => {
+    expect(component?.render()).to.eq(`<div class="test">Test</div>`);
   });
 });
