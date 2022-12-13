@@ -1,12 +1,8 @@
 import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
-
 import EventBus from './event-bus';
-import { deepEqual } from 'helpers/fn';
 
-interface ComponentMeta<P = any> {
-  props: P;
-}
+import { v4 as makeUUID } from 'uuid';
+import { deepEqual } from 'helpers/fn';
 
 type Events = Values<typeof Component.EVENTS>;
 
@@ -23,8 +19,7 @@ export default abstract class Component<
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
-  private readonly _meta: ComponentMeta;
+  public id = makeUUID();
 
   protected _element: Nullable<HTMLElement> = null;
   protected props: P;
@@ -39,12 +34,6 @@ export default abstract class Component<
 
   public constructor(props?: P) {
     const eventBus = new EventBus<Events>();
-
-    this._meta = {
-      props,
-    };
-
-    this.getStateFromProps(props);
 
     this.props = this._makePropsProxy(props || ({} as P));
     this.state = this._makePropsProxy(this.state);
@@ -67,7 +56,7 @@ export default abstract class Component<
     this._element = this._createDocumentElement('div');
   }
 
-  protected getStateFromProps(props: any): void {
+  protected getStateFromProps(): void {
     this.state = {};
   }
 
