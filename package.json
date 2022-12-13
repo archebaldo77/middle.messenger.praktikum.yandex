@@ -24,7 +24,7 @@
     "url": "https://github.com/archebaldo77/middle.messenger.praktikum.yandex/issues"
   },
   "lint-staged": {
-    "*.(js|ts|scss|css)": [
+    "*.(ts|js)": [
       "npm run check",
       "git add"
     ]
