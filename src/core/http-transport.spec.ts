@@ -15,18 +15,18 @@ describe('HTTPTransport test cases', () => {
   });
 
   it('should method get return right type ', () => {
-    expect(apiInstance.get(`/test`) instanceof Promise).to.eq(true);
+    expect(apiInstance.get(`/path`) instanceof Promise).to.eq(true);
   });
 
   it('should method post return right type ', () => {
-    expect(apiInstance.post(`/test`) instanceof Promise).to.eq(true);
+    expect(apiInstance.post(`/path`) instanceof Promise).to.eq(true);
   });
 
   it('should method put return right type ', () => {
-    expect(apiInstance.post(`/put`) instanceof Promise).to.eq(true);
+    expect(apiInstance.post(`/path`) instanceof Promise).to.eq(true);
   });
 
   it('should method delete return right type ', () => {
-    expect(apiInstance.post(`/put`) instanceof Promise).to.eq(true);
+    expect(apiInstance.post(`/path`) instanceof Promise).to.eq(true);
   });
 });
