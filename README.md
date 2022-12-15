@@ -8,9 +8,10 @@
 
 ### Спринты
 
-[1-ый спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/1)  
-[2-ой спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/2)
-[3-ий спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/3)
+- [1-ый спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/1)  
+- [2-ой спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/2)
+- [3-ий спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/3)
+- [4-ый спринт](https://github.com/archebaldo77/middle.messenger.praktikum.yandex/pull/4)
 
 ---
 
@@ -28,7 +29,7 @@
 
 ---
 
-#### Технологии и реализация по результатам 3-eх спринтов:
+#### Технологии и реализация по результатам 4-eх спринтов:
 
 - SPA (Реализован базовый класс и компоненты, все приложение использует единую точку входа)
 - Typescript (Внедрен в проект на базовом уровне)
